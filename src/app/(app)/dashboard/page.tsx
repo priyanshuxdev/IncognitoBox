@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import MessageCard from "@/components/MessageCard";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -20,10 +21,7 @@ import {
 import { CiUser } from "react-icons/ci";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
-import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
-
 import {
   Card,
   CardContent,
@@ -35,7 +33,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import ShineBorder from "@/components/ui/shine-border";
 
-export default function page() {
+export default function Page() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
@@ -96,7 +94,7 @@ export default function page() {
         setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessages]
+    [setIsLoading, setMessages, toast]
   );
 
   //fetch initail state from the server

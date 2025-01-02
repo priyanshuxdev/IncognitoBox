@@ -26,7 +26,7 @@ import ShimmerButton from "@/components/ui/shimmer-button";
 import LetterPullup from "@/components/ui/letter-pullup";
 import ShinyButton from "@/components/ui/shiny-button";
 
-export default function sendMessage() {
+export default function SendMessage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 

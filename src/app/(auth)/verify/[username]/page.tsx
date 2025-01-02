@@ -19,7 +19,7 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function page() {
+export default function Page() {
   const [isVerifying, setIsVerifying] = useState(false);
   const router = useRouter();
   const params = useParams<{ username: string }>();

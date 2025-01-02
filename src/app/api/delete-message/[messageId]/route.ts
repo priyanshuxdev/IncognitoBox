@@ -6,9 +6,10 @@ import { User } from "next-auth";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { messageId: string } }
+  context: { params: { messageId: string } }
 ) {
-  const messageId = params.messageId;
+  const { messageId } = context.params;
+  // console.log("messageId", messageId);
   //connect to database
   await dbConnect();
 

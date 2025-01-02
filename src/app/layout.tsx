@@ -33,8 +33,8 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0A0A0A] text-yellow-50`}
         >
           {children}
+          <Toaster />
         </body>
-        <Toaster />
       </html>
     </AuthProvider>
   );
