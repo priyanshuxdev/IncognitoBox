@@ -2,12 +2,12 @@
 
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { User } from "next-auth";
+// import { User } from "next-auth";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
   const { data: session } = useSession();
-  const user: User = session?.user as User;
+  // const user: User = session?.user as User;
 
   return (
     <>

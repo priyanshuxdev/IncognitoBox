@@ -3,8 +3,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 // import AutoScroll from "embla-carousel-auto-scroll";
@@ -40,8 +38,6 @@ export default function CarouselComp() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        {/* <CarouselPrevious />
-          <CarouselNext /> */}
       </Carousel>
     </>
   );

@@ -5,7 +5,7 @@ import { options } from "../auth/[...nextauth]/options";
 import { User } from "next-auth";
 import mongoose from "mongoose";
 
-export async function GET(request: Request) {
+export async function GET() {
   //connect to the database
   await dbConnect();
 
