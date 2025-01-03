@@ -11,26 +11,38 @@ export const options: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         username: { label: "Username", type: "text", placeholder: "psDev" },
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "Email",
+        },
         password: {
           label: "Password",
           type: "password",
           placeholder: "password",
         },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<any> {
+        //connect to database
         await dbConnect();
+
         try {
           const user = await UserModel.findOne({
             $or: [
-              { email: credentials.email },
-              { username: credentials.username },
+              { username: credentials?.username },
+              { email: credentials?.email },
             ],
           });
+
           if (!user) {
             throw new Error("No user found with this email or username!");
           }
           if (!user.isVerified) {
             throw new Error("Please verify your email first!");
+          }
+
+          if (!credentials?.password) {
+            throw new Error("Password is required!");
           }
 
           const isValid = await bcrypt.compare(
