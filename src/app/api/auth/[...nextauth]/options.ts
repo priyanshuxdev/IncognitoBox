@@ -1,8 +1,11 @@
-import { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/UserModel";
 import bcrypt from "bcryptjs";
+import { User } from "next-auth";
+
+//In credentials provider in next auth have user with limited fields so if we have more custom fields to add in user we have to add tne type of user in next auth in next-auth.d.ts file
 
 export const options: NextAuthOptions = {
   providers: [
@@ -10,11 +13,10 @@ export const options: NextAuthOptions = {
       id: "credentials",
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "psDev" },
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "Email",
+        identifier: {
+          label: "Email/Username",
+          type: "text",
+          placeholder: "Email/Username",
         },
         password: {
           label: "Password",
@@ -22,21 +24,26 @@ export const options: NextAuthOptions = {
           placeholder: "password",
         },
       },
-      async authorize(credentials): Promise<any> {
+      async authorize(credentials): Promise<User | null> {
+        if (!credentials) {
+          throw new Error("Credentials are required");
+        }
         //connect to database
         await dbConnect();
 
         try {
           const user = await UserModel.findOne({
             $or: [
-              { username: credentials?.username },
-              { email: credentials?.email },
+              { username: credentials?.identifier },
+              { email: credentials?.identifier },
             ],
           });
+          console.log(user);
 
           if (!user) {
-            throw new Error("No user found with this email or username!");
+            return null;
           }
+
           if (!user.isVerified) {
             throw new Error("Please verify your email first!");
           }
@@ -52,7 +59,14 @@ export const options: NextAuthOptions = {
           if (!isValid) {
             throw new Error("Incorrect password!");
           } else {
-            return user;
+            return {
+              id: (user._id as string).toString(),
+              _id: (user._id as string).toString(),
+              username: user.username as string,
+              password: user.password as string,
+              isVerified: user.isVerified as boolean,
+              isAcceptingMessages: user.isAcceptingMessages as boolean,
+            };
           }
         } catch (error: unknown) {
           if (error instanceof Error) {
@@ -65,6 +79,7 @@ export const options: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      //we are inserting user data into token
       if (user) {
         token._id = user._id?.toString(); //it converts objectid to string
         token.username = user.username;
