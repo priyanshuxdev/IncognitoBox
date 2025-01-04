@@ -1,8 +1,8 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/UserModel";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextResponse) {
+export async function POST(request: NextRequest) {
   //connecting to database
   await dbConnect();
 
