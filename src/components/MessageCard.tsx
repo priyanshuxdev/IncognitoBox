@@ -62,7 +62,7 @@ export default function MessageCard({
     <Card className="card-bordered bg-[#0A0A0A]">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-[#f8f8f8ff] text-sm sm:text-3xl">
+          <CardTitle className="text-[#f8f8f8ff] text-[17px] sm:text-3xl">
             {message.content}
           </CardTitle>
           <AlertDialog>

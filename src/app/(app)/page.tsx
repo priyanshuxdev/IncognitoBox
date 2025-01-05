@@ -2,9 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import CarouselComp from "@/components/Carousel";
-import Ripple from "@/components/ui/ripple";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import FlickeringGrid from "@/components/ui/flickering-grid";
 
 export default function Home() {
   const router = useRouter();
@@ -12,9 +12,16 @@ export default function Home() {
 
   return (
     <>
-      <Ripple />
-      <div className="relative h-[85vh] sm:max-h-screen flex flex-col justify-center items-center">
-        <main className="relative flex flex-col justify-center gap-16 max-sm:px-5">
+      <FlickeringGrid
+        className="z-0 absolute inset-0 size-full"
+        squareSize={10}
+        gridGap={6}
+        color="#6B7280"
+        maxOpacity={0.3}
+        flickerChance={0.1}
+      />
+      <div className="overflow-hidden relative h-[85vh] sm:max-h-screen flex flex-col justify-center items-center">
+        <main className="overflow-hidden relative flex flex-col justify-center gap-16 max-sm:px-5">
           <section className="flex flex-col justify-center items-start sm:max-w-[90%]">
             <h1 className="text-[34px] leading-none sm:text-6xl font-semibold mb-3">
               Dive into the world of Anonymous Conversation

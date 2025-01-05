@@ -96,7 +96,9 @@ export default function Page() {
     <div className="flex justify-center gap-4 items-center min-h-screen">
       <div className="w-full max-w-md text-yellow-50 p-8 shadow-md">
         <div className="mb-3 text-center">
-          <h1 className="font-bold text-2xl">Welcome to Incognito Box</h1>
+          <h1 className="font-bold text-2xl">
+            Welcome to <Link href="/">Incognito Box</Link>
+          </h1>
           <p className="text-sm text-slate-500">
             Sign up to start your anonymous adventure
           </p>
