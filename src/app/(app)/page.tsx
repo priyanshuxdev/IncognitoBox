@@ -17,7 +17,7 @@ export default function Home() {
         squareSize={20}
         gridGap={6}
         color="#6B7280"
-        maxOpacity={0.12}
+        maxOpacity={0.2}
         flickerChance={0.1}
       />
       <div className="relative h-[85vh] sm:max-h-screen flex flex-col justify-center items-center">
