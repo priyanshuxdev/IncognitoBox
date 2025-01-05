@@ -13,14 +13,14 @@ export default function Home() {
   return (
     <>
       <FlickeringGrid
-        className="z-0 absolute inset-0 size-full"
-        squareSize={10}
+        className="-z-10 absolute inset-0 size-full"
+        squareSize={20}
         gridGap={6}
         color="#6B7280"
-        maxOpacity={0.3}
+        maxOpacity={0.12}
         flickerChance={0.1}
       />
-      <div className="overflow-hidden relative h-[85vh] sm:max-h-screen flex flex-col justify-center items-center">
+      <div className="relative h-[85vh] sm:max-h-screen flex flex-col justify-center items-center">
         <main className="overflow-hidden relative flex flex-col justify-center gap-16 max-sm:px-5">
           <section className="flex flex-col justify-center items-start sm:max-w-[90%]">
             <h1 className="text-[34px] leading-none sm:text-6xl font-semibold mb-3">
