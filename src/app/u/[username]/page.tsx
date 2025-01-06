@@ -74,8 +74,18 @@ export default function SendMessage() {
             "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
           )}
         />
+
+        <div className="sm:hidden flex flex-col items-center justify-center mb-5">
+          <LetterPullup
+            className="publicPageTextGradient text-[40px]"
+            words={"IncognitoBox"}
+            delay={0.05}
+          />
+          <p className="textGradient">Anonymous Messaging</p>
+        </div>
+
         <LetterPullup
-          className="publicPageTextGradient max-sm:text-[1.2rem] mb-4 "
+          className="publicPageTextGradient max-sm:text-[1.2rem] mb-4 max-sm:hidden"
           words={"IncognitoBox - Anonymous Messaging"}
           delay={0.05}
         />
@@ -93,7 +103,7 @@ export default function SendMessage() {
                   <FormControl>
                     <Textarea
                       placeholder="Type your anonymous message here..."
-                      className="resize-none bg-transparent text-white"
+                      className="resize-y bg-transparent text-white placeholder:textGradient"
                       {...field}
                     />
                   </FormControl>
@@ -120,8 +130,8 @@ export default function SendMessage() {
           </form>
         </FormProvider>
         {/* <Separator className="my-6" /> */}
-        <div className="text-center mt-8">
-          <div className="mb-3 text-[#f8f8ff]">Get Your Message Board</div>
+        <div className="text-center mt-12 sm:mt-8">
+          <div className="mb-3 text-[#f8f8ff]">Get Your Message Board:</div>
           <Link href={"/signup"}>
             <ShinyButton className="bg-[#f8f8ff] text-[#454545]">
               Create Your Account

@@ -60,13 +60,15 @@ export default function Page() {
     <div className="flex justify-center items-center min-h-screen ">
       <div className="w-full max-w-md p-8 shadow-md">
         <div className="mb-3 text-center">
-          <h1 className="font-bold text-2xl">Welcome back to Incognito Box</h1>
+          <h1 className="font-bold text-[25px]">
+            Welcome back to <Link href="/">Incognito Box</Link>
+          </h1>
           <p className="text-sm text-slate-600">
             Sign in to continue your secret conversation
           </p>
         </div>
         <FormProvider {...form}>
-          <form onSubmit={form.handleSubmit(onSigningIn)}>
+          <form onSubmit={form.handleSubmit(onSigningIn)} className="space-y-3">
             <FormField
               name="identifier"
               control={form.control}

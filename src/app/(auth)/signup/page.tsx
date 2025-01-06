@@ -104,7 +104,7 @@ export default function Page() {
           </p>
         </div>
         <FormProvider {...form}>
-          <form onSubmit={form.handleSubmit(onSigningUp)}>
+          <form onSubmit={form.handleSubmit(onSigningUp)} className="space-y-3">
             <FormField
               name="username"
               control={form.control}
