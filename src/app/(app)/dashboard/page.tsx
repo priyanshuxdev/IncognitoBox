@@ -5,7 +5,7 @@ import MessageCard from "@/components/MessageCard";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { Message } from "@/models/UserModel";
+import { Message } from "@/types/types";
 import { acceptMessageSchema } from "@/schemas/acceptMessageSchema";
 import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,9 +37,9 @@ export default function Page() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { toast } = useToast();
   const { data: session } = useSession();
-  const [copied, setCopied] = useState(false);
 
   //optimistic ui deletion
   const onDeleteMessage = (messageId: string) => {
@@ -100,7 +100,6 @@ export default function Page() {
   //fetch initail state from the server
   useEffect(() => {
     if (!session || !session.user) return;
-
     getAcceptMessageStatus();
     getMessages();
   }, [session, setValue, toast, getMessages, getAcceptMessageStatus]);
@@ -135,11 +134,9 @@ export default function Page() {
       </div>
     );
 
-  const { username } = session.user as User;
-
+  const { username } = session?.user as User;
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
-
   const copyToClipboard = () => {
     setCopied(true);
     navigator.clipboard.writeText(profileUrl);
@@ -148,7 +145,7 @@ export default function Page() {
       description: "Profile Url has been copied to clipboard",
       variant: "default",
     });
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), 1000);
   };
 
   return (
@@ -249,8 +246,6 @@ export default function Page() {
           </CardContent>
         </Card>
       </div>
-
-      {/* <Link href={profileUrl}>Go to public profile page...</Link> */}
     </>
   );
 }

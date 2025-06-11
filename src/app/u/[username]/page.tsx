@@ -1,4 +1,3 @@
-//Public Profile
 "use client";
 
 import {
@@ -39,6 +38,7 @@ export default function SendMessage() {
 
   //watching every words of content
   const messageContent = form.watch("content");
+
   const onSendingMessage = async (data: MessageSchema) => {
     setIsLoading(true);
     try {
@@ -47,7 +47,7 @@ export default function SendMessage() {
         username,
       });
       toast({
-        title: "Thank you for your feedback!",
+        title: "Thank you for your message!",
         description: response.data.message,
         variant: "default",
       });
@@ -67,7 +67,7 @@ export default function SendMessage() {
   };
 
   return (
-    <div className="relative h-[93vh] flex flex-col justify-center items-center">
+    <div className="relative min-h-screen flex flex-col justify-center items-center">
       <div className="w-full sm:w-3/4  text-yellow-50 p-8 shadow-md">
         <DotPattern
           className={cn(
@@ -77,16 +77,18 @@ export default function SendMessage() {
 
         <div className="sm:hidden flex flex-col items-center justify-center mb-5">
           <LetterPullup
-            className="publicPageTextGradient text-[40px]"
+            className="bg-gradient-to-b from-neutral-50 via-neutral-300 to-neutral-800 bg-clip-text text-transparent text-[40px]"
             words={"IncognitoBox"}
             delay={0.05}
           />
-          <p className="textGradient">Anonymous Messaging</p>
+          <p className="bg-gradient-to-tr from-neutral-50 via-neutral-300 to-neutral-800 bg-clip-text text-transparent">
+            Message Anonymously
+          </p>
         </div>
 
         <LetterPullup
-          className="publicPageTextGradient max-sm:text-[1.2rem] mb-4 max-sm:hidden"
-          words={"IncognitoBox - Anonymous Messaging"}
+          className="bg-gradient-to-b from-neutral-50 via-neutral-300 to-neutral-800 bg-clip-text text-transparent max-sm:text-[1.2rem] mb-4 max-sm:hidden"
+          words={"IncognitoBox - Message Anonymously"}
           delay={0.05}
         />
 
@@ -140,7 +142,7 @@ export default function SendMessage() {
         </div>
       </div>
       <footer className="absolute bottom-0">
-        <span className="text-[10px]">Created with ❤ by priyanshuxdev</span>
+        <span className="text-[10px]">Created with ❤ by @prynsustwt</span>
       </footer>
     </div>
   );

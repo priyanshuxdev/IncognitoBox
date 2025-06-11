@@ -17,8 +17,9 @@ export async function POST(request: NextRequest) {
 
     //checkin if the code is correct and not expired
     const isCodeValid = existingUser.verifyToken === code;
-    const isCodeNotExpired =
-      new Date(existingUser.verifyTokenExpires) > new Date();
+    const isCodeNotExpired = existingUser.verifyTokenExpires
+      ? new Date(existingUser.verifyTokenExpires) > new Date()
+      : false;
 
     if (isCodeValid && isCodeNotExpired) {
       //updating the user as verified
@@ -46,7 +47,6 @@ export async function POST(request: NextRequest) {
         }
       );
     } else {
-      //if the code is invalid
       return NextResponse.json(
         {
           success: false,

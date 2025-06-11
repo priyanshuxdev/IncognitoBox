@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
+import { FcGoogle } from "react-icons/fc";
+import { Separator } from "@/components/ui/separator";
 
 export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -112,6 +114,26 @@ export default function Page() {
             </Button>
           </form>
         </FormProvider>
+
+        <div className="relative my-4">
+          <div className="absolute inset-0 flex items-center">
+            <Separator className="w-full" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="px-2 text-white bg-black">Or continue with</span>
+          </div>
+        </div>
+
+        <Button
+          variant="secondary"
+          type="button"
+          className="w-full bg-yellow-50"
+          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        >
+          <FcGoogle className="mr-2 h-4 w-4" />
+          Sign in with Google
+        </Button>
+
         <div className="mt-4 text-center">
           <p className="text-[#bfbfbfac] text-sm">
             Not a member yet?{" "}

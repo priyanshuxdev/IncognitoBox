@@ -11,6 +11,9 @@ importers:
       '@ai-sdk/google':
         specifier: ^1.0.4
         version: 1.0.4(zod@3.23.8)
+      '@fontsource-variable/urbanist':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@google/generative-ai':
         specifier: ^0.21.0
         version: 0.21.0
@@ -431,6 +434,9 @@ packages:
   '@eslint/js@8.57.1':
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@fontsource-variable/urbanist@5.2.5':
+    resolution: {integrity: sha512-SduhoZr/pMM4LMS+pKXnP7OV5w2+cE8GtcLyRep12udDkktSH1yZX+M5m3OK6J2PMrG8GBlBRM6+kEehUrREWA==}
 
   '@google/generative-ai@0.21.0':
     resolution: {integrity: sha512-7XhUbtnlkSEZK15kN3t+tzIMxsbKm/dSkKBFalj+20NvPKe1kBY7mR2P7vuijEn+f06z5+A8bVGKO0v39cr6Wg==}
@@ -3579,6 +3585,8 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.57.1': {}
+
+  '@fontsource-variable/urbanist@5.2.5': {}
 
   '@google/generative-ai@0.21.0': {}
 

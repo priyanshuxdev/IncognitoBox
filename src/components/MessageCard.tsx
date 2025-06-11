@@ -19,8 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
-// import { Message } from "@/schemas/messageSchema";
-import { Message } from "@/models/UserModel";
+import { Message } from "@/types/types";
 import { useState } from "react";
 
 type MessageCardProps = {
@@ -44,7 +43,6 @@ export default function MessageCard({
       toast({
         title: response.data.message,
       });
-
       onMessageDelete(`${message._id}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;

@@ -1,9 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface Message extends Document {
-  content: string;
-  timestamp: Date;
-}
+import { Message, User } from "@/types/types";
+import mongoose, { Schema } from "mongoose";
 
 const MessageSchema: Schema<Message> = new Schema({
   content: {
@@ -16,17 +12,6 @@ const MessageSchema: Schema<Message> = new Schema({
     default: Date.now,
   },
 });
-
-export interface User extends Document {
-  username: string;
-  email: string;
-  password: string;
-  verifyToken: string;
-  verifyTokenExpires: Date;
-  isVerified: boolean;
-  isAcceptingMessages: boolean;
-  messages: Message[];
-}
 
 const UserSchema: Schema<User> = new Schema({
   username: {
@@ -46,15 +31,26 @@ const UserSchema: Schema<User> = new Schema({
   },
   password: {
     type: String,
-    required: [true, "Password is required"],
+    required: function () {
+      return !this.googleId; // Password is required only if not using Google auth
+    },
+  },
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true, // Allows null/undefined values
   },
   verifyToken: {
     type: String,
-    required: [true, "Verify token is required"],
+    required: function () {
+      return !this.googleId; // Verify token is required only if not using Google auth
+    },
   },
   verifyTokenExpires: {
     type: Date,
-    required: [true, "Verify token expiry date is required"],
+    required: function () {
+      return !this.googleId; // Verify token expiry is required only if not using Google auth
+    },
   },
   isVerified: {
     type: Boolean,

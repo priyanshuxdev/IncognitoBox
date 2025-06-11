@@ -1,11 +1,10 @@
 import { DefaultSession } from "next-auth";
-import "next-auth";
+import NextAuth from "next-auth";
 
 declare module "next-auth" {
   interface User {
     _id?: string;
     username?: string;
-    password?: string;
     isVerified?: boolean;
     isAcceptingMessages?: boolean;
   }

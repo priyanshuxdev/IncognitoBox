@@ -20,14 +20,18 @@ export default function Home() {
         maxOpacity={0.2}
         flickerChance={0.1}
       />
-      <div className="relative h-[85vh] sm:max-h-screen flex flex-col justify-center items-center">
+      <div className="relative h-[85vh] md:max-h-screen flex flex-col justify-center items-center">
         <main className="overflow-hidden relative flex flex-col justify-center gap-16 max-sm:px-5">
-          <section className="flex flex-col justify-center items-start sm:max-w-[90%]">
-            <h1 className="text-[34px] leading-none sm:text-6xl font-semibold mb-3">
-              Dive into the world of Anonymous Conversation
+          {/* flex flex-col justify-center items-start sm:max-w-[90%] */}
+          <div className="flex flex-col items-center justify-center text-center">
+            <h1 className="text-[34px] leading-none md:text-7xl md:max-w-[60%] text-neutral-400 font-bold mb-3">
+              Drop the <span className="text-white">Mask</span>, Keep the{" "}
+              <span className="text-white">Mystery</span>, Own the{" "}
+              <span className="text-white">Truth</span>
             </h1>
-            <p className="text-sm font-thin">
-              Explore <span className="font-semibold">IncognitoBox</span> -
+            <p className="text-[16px] font-normal text-gray-300">
+              Explore{" "}
+              <span className="font-semibold text-white">IncognitoBox</span> -
               Where your identity remains a secret...
             </p>
             {session && session.user ? (
@@ -53,15 +57,17 @@ export default function Home() {
                 </Button>
               </div>
             )}
-          </section>
+          </div>
+
           <div className="sm:fixed sm:bottom-7 sm:right-5">
             <CarouselComp />
           </div>
         </main>
 
         <footer className="absolute bottom-5 sm:fixed sm:bottom-1">
-          <p className="text-[10px]">
-            © 2024 Incognito Box. All rights reserved.
+          <p className="text-sm">
+            {/* © 2024 Incognito Box. All rights reserved. */}
+            Made with ❤ by @prynsustwt
           </p>
         </footer>
       </div>

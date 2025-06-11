@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/UserModel";
 import bcrypt from "bcryptjs";
@@ -38,7 +39,7 @@ export const options: NextAuthOptions = {
               { email: credentials?.identifier },
             ],
           });
-          console.log(user);
+          // console.log(user);
 
           if (!user) {
             return null;
@@ -54,8 +55,9 @@ export const options: NextAuthOptions = {
 
           const isValid = await bcrypt.compare(
             credentials.password,
-            user.password
+            user?.password as string
           );
+
           if (!isValid) {
             throw new Error("Incorrect password!");
           } else {
@@ -63,7 +65,7 @@ export const options: NextAuthOptions = {
               id: (user._id as string).toString(),
               _id: (user._id as string).toString(),
               username: user.username as string,
-              password: user.password as string,
+              // password: user?.password as string,
               isVerified: user.isVerified as boolean,
               isAcceptingMessages: user.isAcceptingMessages as boolean,
             };
@@ -76,12 +78,61 @@ export const options: NextAuthOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        await dbConnect();
+
+        try {
+          const existingUser = await UserModel.findOne({ email: user.email });
+
+          if (existingUser) {
+            // Update existing user's Google info
+            existingUser.googleId = account.providerAccountId;
+            existingUser.isVerified = true;
+            await existingUser.save();
+
+            // Add user data to the token
+            user._id = (existingUser._id as string).toString();
+            user.username = existingUser.username;
+            user.isVerified = existingUser.isVerified;
+            user.isAcceptingMessages = existingUser.isAcceptingMessages;
+            return true;
+          }
+
+          // Create new user if doesn't exist
+          const newUser = new UserModel({
+            email: user.email,
+            username: user.name?.split(" ")[0],
+            googleId: account.providerAccountId,
+            isVerified: true, //pre-verified
+            isAcceptingMessages: true,
+            messages: [],
+          });
+
+          await newUser.save();
+
+          // Add user data to the token
+          user._id = (newUser._id as string).toString();
+          user.username = newUser.username;
+          user.isVerified = newUser.isVerified;
+          user.isAcceptingMessages = newUser.isAcceptingMessages;
+          return true;
+        } catch (error) {
+          console.error("Error in Google sign in:", error);
+          return false;
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
-      //we are inserting user data into token
       if (user) {
-        token._id = user._id?.toString(); //it converts objectid to string
+        token._id = user._id;
         token.username = user.username;
         token.isVerified = user.isVerified;
         token.isAcceptingMessages = user.isAcceptingMessages;

@@ -77,6 +77,10 @@ body {
   }
 }
 
+body {
+  font-family: "Urbanist Variable", sans-serif;
+}
+
 @layer base {
   * {
     @apply border-border;
